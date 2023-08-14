@@ -1,11 +1,14 @@
 import requests
 from bs4 import BeautifulSoup
-import json
-import time
 from selenium import webdriver
+import time
+l=list()
+obj={}
+url = 'https://www.zillow.com/seattle-wa/'
+driver=webdriver.Chrome()
+driver.get(url)
 
-class ZillowScrapper():
-    headers = {
+headers = {
     'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
     'accept-encoding': 'gzip, deflate, br',
     'accept-language': 'en-US,en;q=0.9',
@@ -19,29 +22,26 @@ class ZillowScrapper():
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'
     }
 
-    def fetch(self, url, params):
-        proxy = {'http': '129.226.33.104:3218'}
-        response = requests.get(url, headers=self.headers, params=params, proxies=proxy)
-        return response
-    
-    def parse(self, response):
-        content = BeautifulSoup(response.content, 'html.parser')
-        deck = content.find('ul', {'class': 'List-c11n-8-84-3__sc-1smrmqp-0 StyledSearchListWrapper-srp__sc-1ieen0c-0 doa-doM fgiidE photo-cards photo-cards_extra-attribution'})
-        print(deck.prettify())
-        for card in deck.contents:
-            script = card.find('script', {'type': 'application/ld+json'})
-            if script:
-                script_json = json.loads(script.text)
-                print(script_json['name'])
+for page in range(1,5):
+    resp = requests.get('https://www.zillow.com/seattle-wa/{}_p'.format(page), headers=headers).text
+    soup = BeautifulSoup(resp, 'html.parser')
+    properties = soup.find_all("li",{"class":"ListItem-c11n-8-84-3__sc-10e22w8-0 StyledListCardWrapper-srp__sc-wtsrtn-0 iCyebE gTOWtl"})
 
-    def run(self):
-        url = "https://www.zillow.com/seattle-wa/"
-        params = {
-            'searchQueryState': '{"pagination":{},"mapBounds":{"north":47.795229510991625,"south":47.43047194771355,"east":-122.03992539453127,"west":-122.64966660546877},"mapZoom":11,"usersSearchTerm":"Seattle WA","regionSelection":[{"regionId":16037,"regionType":6}],"isMapVisible":false,"filterState":{"ah":{"value":true},"sort":{"value":"globalrelevanceex"}},"isListVisible":true}'
-        }
-        res = self.fetch(url, params)
-        self.parse(res)
+    print(len(properties))
 
-if __name__ == '__main__':
-    scrapper = ZillowScrapper()
-    scrapper.run()
+    for x in range(0,len(properties)):
+        try:
+            obj["pricing"]=properties[x].find("div",{"class":"StyledPropertyCardDataArea-c11n-8-84-3__sc-yipmu-0 fDSTNn"}).text
+        except:
+            obj["pricing"]=None
+        try:
+            obj["size"]=properties[x].find("div",{"class":"StyledPropertyCardDataArea-c11n-8-84-3__sc-yipmu-0 dbDWjx"}).text
+        except:
+            obj["size"]=None
+        try:
+            obj["address"]=properties[x].find("a",{"class":"StyledPropertyCardDataArea-c11n-8-84-3__sc-yipmu-0 jnnxAW property-card-link"}).text
+        except:
+            obj["address"]=None
+        l.append(obj)
+        obj={}
+print(l)
