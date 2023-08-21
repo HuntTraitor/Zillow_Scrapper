@@ -1,1 +1,1 @@
-# Zillow_Scrapper
+A script that scrap all of the houses in Seatlle, WA listed on Zillow and stores them in a database

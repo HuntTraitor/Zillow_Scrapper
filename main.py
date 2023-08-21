@@ -2,8 +2,8 @@ import requests
 import re
 import json
 import pandas as pd
-import pprint
 from datetime import date
+from db import addData
 
 url='https://www.zillow.com/seattle-wa/{page}_p/'
 lst=[]
@@ -20,10 +20,9 @@ def getData(url):
             zip=item['addressZipcode']
             sqrft=item['area']
             date=today
-            lst.append({'date': date, 'address': street, 'price': price, 'zip': zip, 'SQRFT': sqrft})
+            lst.append({'date': date.isoformat(), 'address': street, 'price': price, 'zip': zip, 'SQRFT': sqrft})
     return lst
 
-
 data = getData(url)
-print(pd.DataFrame(data))
+addData(data)
 
