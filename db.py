@@ -11,7 +11,9 @@ db = client.Zillow
 
 def addData(data):
     houses = db.houses
+    print("updating database...")
     for house in data:
         houses.replace_one({"address": house.get("address")}, house, upsert=True)
+    print("database successfully updated")
 
 
