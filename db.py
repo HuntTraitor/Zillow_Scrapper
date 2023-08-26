@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from pymongo import MongoClient
+import time
 
 load_dotenv('.env')
 username: str = os.getenv('DB_USERNAME')
@@ -11,9 +12,10 @@ db = client.Zillow
 
 def addData(data):
     houses = db.houses
+    start_time = time.time()
     print("updating database...")
     for house in data:
         houses.replace_one({"address": house.get("address")}, house, upsert=True)
-    print("database successfully updated")
+    print("database successfully updated in ----%s seconds----" % (time.time() - start_time))
 
 
