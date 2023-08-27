@@ -18,4 +18,7 @@ def addData(data):
         houses.replace_one({"address": house.get("address")}, house, upsert=True)
     print("database successfully updated in ----%s seconds----" % (time.time() - start_time))
 
-
+def getHouses():
+    collection = db.houses
+    data = collection.find({})
+    return data
