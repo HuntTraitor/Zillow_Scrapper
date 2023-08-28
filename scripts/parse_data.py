@@ -1,17 +1,8 @@
 import requests
 import re
 import json
-import pandas as pd
 from datetime import date
-from db import addData
-from graph import updateGraph
-
-def main():
-    url='https://www.zillow.com/seattle-wa/{page}_p/'
-
-    data = getData(url)
-    addData(data)
-    updateGraph()
+from collections import defaultdict
 
 def getData(url):
     print("parsing data...")
@@ -29,6 +20,17 @@ def getData(url):
     print("parasing complete")
     return lst
 
-if __name__ == '__main__':
-    main()
+def getAveragePrice(data):
+    averages = {}
+    zip = set()
+    zipVprice = defaultdict(list)
+    for item in data:
+        zip.add(item['zip'])
+        item['price'] = int(re.sub(r'[^0-9]','',item['price']))
+        zipVprice[item['zip']].append(item['price'])
 
+    for key, values in zipVprice.items():
+        average = sum(values)/len(values)
+        average = round(average, 2)
+        averages[key]=average
+    return averages
