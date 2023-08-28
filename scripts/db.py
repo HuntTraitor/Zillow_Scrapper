@@ -15,20 +15,22 @@ db = client.Zillow
 
 def addData(data):
     print("updating database...")
-    houses = db.houses
     start_time = time.time()
+    houses = db.houses
     for house in data:
         houses.replace_one({"address": house.get("address")}, house, upsert=True)
     print("database successfully updated in ----%s seconds----" % (time.time() - start_time))
 
 def addZipData(data):
+    print("updating zipcode databases...")
+    start_time = time.time()
     data = getAveragePrice(data)
     for key, value in data.items():
         collection_name = key
         print(collection_name)
         if collection_name not in db.list_collection_names():
             db.create_collection(collection_name)
-            print(f"Collection '{collection_name}' created.")
+            print(f"New zip collection '{collection_name}' created.")
 
         collection = db[collection_name]
         current_date = date.today().isoformat()
@@ -37,10 +39,9 @@ def addZipData(data):
 
         if existing_record:
             collection.update_one({"date": current_date}, {"$set":{"averagePrice": value}})
-            print(f"Record for date {current_date} updated")
         else:
             collection.insert_one(record)
-            print(f"Record for date {current_date} inserted.")
+    print("zipcode database successfully updated in ----%s seconds-----" % (time.time() - start_time))
 
 def getHouses():
     collection = db.houses

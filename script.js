@@ -35,6 +35,5 @@ for(let i = 0; i < zipGraphs.length; i++){
     let img = document.createElement("img");
     img.src = "plots/zips/" + zipGraphs[i];
     img.alt = "Image " + (i+1);
-
     zipGallery.appendChild(img);
 }
