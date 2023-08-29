@@ -27,7 +27,6 @@ def addZipData(data):
     data = getAveragePrice(data)
     for key, value in data.items():
         collection_name = key
-        print(collection_name)
         if collection_name not in db.list_collection_names():
             db.create_collection(collection_name)
             print(f"New zip collection '{collection_name}' created.")
