@@ -1,8 +1,23 @@
-import requests
+from collections import defaultdict
 import re
+import requests
 import json
 from datetime import date
-from collections import defaultdict
+
+def getAveragePrice(data):
+    averages = {}
+    zip = set()
+    zipVprice = defaultdict(list)
+    for item in data:
+        zip.add(item['zip'])
+        item['price'] = int(re.sub(r'[^0-9]','',item['price']))
+        zipVprice[item['zip']].append(item['price'])
+
+    for key, values in zipVprice.items():
+        average = sum(values)/len(values)
+        average = round(average, 2)
+        averages[key]=average
+    return averages
 
 def getData(url):
     print("parsing data...")
@@ -20,17 +35,3 @@ def getData(url):
     print("parasing complete")
     return lst
 
-def getAveragePrice(data):
-    averages = {}
-    zip = set()
-    zipVprice = defaultdict(list)
-    for item in data:
-        zip.add(item['zip'])
-        item['price'] = int(re.sub(r'[^0-9]','',item['price']))
-        zipVprice[item['zip']].append(item['price'])
-
-    for key, values in zipVprice.items():
-        average = sum(values)/len(values)
-        average = round(average, 2)
-        averages[key]=average
-    return averages

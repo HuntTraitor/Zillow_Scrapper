@@ -1,6 +1,6 @@
-from db import addData, addZipData
-from graph import updateGraph, updateZipGraphs
-from parse_data import getData
+from backend.db import addData, addZipData
+from backend.graph import updateGraph, updateZipGraphs
+from backend.utils.helpers import getData
 
 def main():
     url='https://www.zillow.com/seattle-wa/{page}_p/'

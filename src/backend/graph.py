@@ -1,5 +1,5 @@
-from db import getHouses, getZips, extractZip
-from parse_data import getAveragePrice
+from .db import getHouses, getZips, extractZip
+from .utils.helpers import getAveragePrice
 import matplotlib.pyplot as plt
 
 def updateGraph():

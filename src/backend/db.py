@@ -1,10 +1,10 @@
 import os
 from dotenv import load_dotenv
 from pymongo import MongoClient
-from parse_data import getAveragePrice
 from datetime import date
 import time
 import re
+from .utils.helpers import getAveragePrice
 
 load_dotenv('.env')
 username: str = os.getenv('DB_USERNAME')
@@ -60,3 +60,9 @@ def getZips():
         if pattern.match(zip):
             zipArr.append(zip)
     return zipArr
+
+def getZipArr():
+    zips = getZips()
+    for i in range(len(zips)):
+        zips[i] += '.png'
+    return zips
