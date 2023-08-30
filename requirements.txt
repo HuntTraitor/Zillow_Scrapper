@@ -1,0 +1,6 @@
+flask
+Python-dotenv
+pymongo
+requests
+matplotlib
+db
