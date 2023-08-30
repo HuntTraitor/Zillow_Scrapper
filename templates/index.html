@@ -12,6 +12,7 @@
         {% for filename in zipGraphs %}
         <img src="{{ url_for('static', filename='plots/zips/' + filename) }}" alt="Image {{ loop.index }}">
         {% endfor %}
+    </div>
 </body>
 <script src="{{url_for('static', filename='script.js')}}"></script>
 </html>
