@@ -13,7 +13,7 @@ def updateGraph():
     plt.xlabel('zip')
     plt.ylabel('average price')
     plt.title('Zip vs Price')
-    plt.savefig('plots/plot.png')
+    plt.savefig('static/plots/plot.png')
     plt.close()
     print("graph updated")
 
@@ -32,7 +32,7 @@ def updateZipGraphs():
         plt.xlabel('date')
         plt.ylabel('average price')
         plt.title(f"{zip} average price over time")
-        plt.savefig(f'plots/zips/{zip}.png')
+        plt.savefig(f'static/plots/zips/{zip}.png')
         plt.close()
     print("zip graphs updated")
         

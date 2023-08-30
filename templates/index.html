@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zillow Housing Data</title>
+</head>
+<body>
+    <h1>Data visualization</h1>
+    <img src="{{url_for('static', filename='plots/plot.png')}}" alt="Bar Graph">
+    <div id="zip-gallery">
+        {% for filename in zipGraphs %}
+        <img src="{{ url_for('static', filename='plots/zips/' + filename) }}" alt="Image {{ loop.index }}">
+        {% endfor %}
+</body>
+<script src="{{url_for('static', filename='script.js')}}"></script>
+</html>
