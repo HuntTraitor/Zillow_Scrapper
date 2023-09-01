@@ -1,3 +1,3 @@
-source /venv/bin/activate
-cd /src
+source venv/bin/activate
+cd src
 python3 run.py
