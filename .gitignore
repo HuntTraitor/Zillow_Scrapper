@@ -1,4 +1,7 @@
 .env
 __pycache__
 venv
-static/plots/*
+static/plots/zips/*.png
+static/plots/plot.png
+cron.log
+scrap.sh
