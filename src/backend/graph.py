@@ -25,10 +25,13 @@ def updateZipGraphs():
         data = extractZip(zip)
         for item in data:
             points[item['date']] = item['averagePrice']
+        if len(points) <= 1:
+            print(f"Skipping graph for {zip}...")
+            continue
         x = list(points.keys())
         y = list(points.values())
         fig, ax = plt.subplots(figsize=(20,6))
-        ax.set_ylim(0,2500000)
+        ax.set_ylim(0,4000000)
         ax.plot(x,y)
         ax.set_xlabel('date')
         ax.set_ylabel('average price')
