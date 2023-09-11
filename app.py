@@ -10,11 +10,11 @@ zipGraphs = getZipArr()
 def home():
     return render_template("index.html", zipGraphs=zipGraphs)
 
-@app.route('/Docs')
+@app.route('/docs')
 def docs():
     return render_template("docs.html")
 
-@app.route('/About')
+@app.route('/about')
 def about():
     return render_template("about.html")
 
