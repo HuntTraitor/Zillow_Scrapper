@@ -6,3 +6,4 @@ static/plots/plot.png
 cron.log
 scrap.sh
 test.py
+.devcontainer
