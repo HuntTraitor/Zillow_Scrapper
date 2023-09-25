@@ -1,51 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Docs</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light header-color">
-        <div class="container">
-            <a class="navbar-brand" href="/">Logo</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-home">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-docs">
-                        <a class="nav-link" href="/docs">Docs</a>
-                    </li>
-                    <li class="nav-git">
-                        <a class="nav-link" href="https://github.com/HuntTraitor/Zillow_Scrapper" target="_blank">Github</a>
-                    </li>
-                    <li class="about">
-                        <a class="nav-link" href="/about">About</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <h1>Docs</h1>
-    <div class="footer-basic">
-        <footer>
-            <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
-            <ul class="list-inline">
-                <li class="list-inline-item"><a href="/">Home</a></li>
-                <li class="list-inline-item"><a href="/docs">Docs</a></li>
-                <li class="list-inline-item"><a href="https://github.com/HuntTraitor/Zillow_Scrapper" target="_blank">Github</a></li>
-                <li class="list-inline-item"><a href="/about">About</a></li>
-            </ul>
-            <p class="copyright">HuntTraitor © 2023</p>
-        </footer>
-    </div>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{{url_for('static', filename='script.js')}}"></script>
-</html>
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="doc-wrapper">
+    <h1 class="title"><u>From the README</u></h1>
+    <p>A website that scraps the zillow market in seattle daily and stores that information into time graphs displaying the appreciation rate of different zipcodes over time.</p>
+    <p>To clone this repo and play around with the codebase, you first need to install Docker. We use Docker to ensure everyone has the same development enviroment so minimize system specific bugs and dependency conflicts.</p>
+    <p>Once you have installed Docker, clone the repository either into a docker container or into any folder on your local machine. If you are on VSCode, you can press f1 and type in 'Dev Containers: Open Folder in Container...' and choose to open it from docker-compose.yml to kickstart the docker container and begin development. If you are not using VSCode, open a terminal and type 'docker-compose up -d' to start the container. </p>
+    <p>The next thing you MUST do to use most of the backend codebase is to create a .env file in the format of the .env.example file and to put in your database credentials. This is to ensure secure access to the mongoDB database.</p>
+    <p>This project is developed in flask with the server file being 'app.py' in the root directory. Type 'python3 app.py' to run the development server on your local machine. It is important to run this server with that command specifically and not 'Flask run' because of port forwarding issues. To run the daily script that both updates the databases and the static graphs, run 'python3 src/run.py' NOTE: Because this command will override things inside of the database and has a lot of overhead, try to use this command as minimally as possible and instead opt for running 'python3 src/static_update.py' to update the graphs on your local machine. There are very few reasons to actually run 'run.py' aside from explicitly updating the database.</p>
+    <p>There will be furthur documentation posted in the future on how exactly the codebase works and how its designed but for now this README should be enough to get started on developing and exploring the codebase. </p>
+</div>
+
+{% endblock %}

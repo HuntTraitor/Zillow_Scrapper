@@ -82,3 +82,37 @@ body {
 .home-bar-graph {
     margin: 25px;
 }
+
+.doc-wrapper {
+  margin: 25px;
+}
+
+.doc-wrapper .title, .about-wrapper .title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.about-wrapper {
+  margin: 25px;
+}
+
+.about-container {
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.instagram-container, .twitter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.social a {
+  padding-top: 3px;
+}
